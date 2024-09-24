@@ -25,15 +25,23 @@ class MainViewModel : ViewModel() {
         if (_isFirstPlayer) {
             newBoard[index] = "O"
             _description.value = "플레이어 2의 차례입니다."
-            if (checkEnd(index, "O")) {
+            if (checkWin(index, "O")) {
                 _description.value = "게임이 종료되었습니다."
+                end = true
+            }
+            if (newBoard.all { it == "O" || it == "X"}){
+                _description.value = "무승부입니다."
                 end = true
             }
         } else {
             newBoard[index] = "X"
             _description.value = "플레이어 1의 차례입니다."
-            if (checkEnd(index, "X")) {
+            if (checkWin(index, "X")) {
                 _description.value = "게임이 종료되었습니다."
+                end = true
+            }
+            if (newBoard.all { it == "O" || it == "X"}){
+                _description.value = "무승부입니다."
                 end = true
             }
         }
@@ -41,7 +49,7 @@ class MainViewModel : ViewModel() {
         _isFirstPlayer = !_isFirstPlayer
     }
 
-    fun checkEnd(currentIndex: Int, currentString: String): Boolean {
+    private fun checkWin(currentIndex: Int, currentString: String): Boolean {
         val rowMod = currentIndex / 3
         val colMod = currentIndex % 3
 
@@ -61,6 +69,15 @@ class MainViewModel : ViewModel() {
             return true
         }
 
+        if (currentIndex % 2 == 0
+            && _board.value?.get(((rowMod + 2) % 3) * 3 + ((colMod + 1) % 3)) == currentString
+            && _board.value?.get(((rowMod + 1) % 3) * 3 + ((colMod + 2) % 3)) == currentString) {
+            return true
+        }
         return false
+    }
+
+    fun resetBoard(){
+
     }
 }
