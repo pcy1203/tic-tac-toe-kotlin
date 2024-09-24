@@ -49,6 +49,12 @@ class MainViewModel : ViewModel() {
         _isFirstPlayer = !_isFirstPlayer
     }
 
+    fun resetButtonClicked(){
+        _board.value = List(9) { "" }
+        _description.value = "플레이어 1의 차례입니다."
+        end = false
+        _isFirstPlayer = true
+    }
     private fun checkWin(currentIndex: Int, currentString: String): Boolean {
         val rowMod = currentIndex / 3
         val colMod = currentIndex % 3
@@ -77,7 +83,5 @@ class MainViewModel : ViewModel() {
         return false
     }
 
-    fun resetBoard(){
 
-    }
 }

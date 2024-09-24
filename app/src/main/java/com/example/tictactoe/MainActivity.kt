@@ -41,7 +41,12 @@ class MainActivity : AppCompatActivity() {
                 viewModel.boxClicked(index)
             }
         }
-
+        binding.ResetButton.setOnClickListener{
+            viewModel.resetButtonClicked()
+        }
+        binding.MenuIcon.setOnClickListener{
+            binding.root.openDrawer(binding.drawer)
+        }
         /*
         enableEdgeToEdge()
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
