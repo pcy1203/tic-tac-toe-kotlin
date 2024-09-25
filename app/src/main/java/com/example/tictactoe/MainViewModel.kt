@@ -13,6 +13,9 @@ class MainViewModel : ViewModel() {
     private val _description = MutableLiveData<String>("플레이어 1의 차례입니다.")
     val description: LiveData<String> = _description
 
+    private val _history = MutableLiveData<List<List<String>>>(List(0) {List(9) {""} })
+    val history: LiveData<List<List<String>>> = _history
+
     private var end = false
 
     private var _isFirstPlayer: Boolean = true
@@ -22,6 +25,8 @@ class MainViewModel : ViewModel() {
         val currentBoard = _board.value ?: return
         if (currentBoard[index].isNotEmpty()) return
         val newBoard = currentBoard.toMutableList()
+
+        val newHistory = _history.value?.toMutableList() ?: mutableListOf()
         if (_isFirstPlayer) {
             newBoard[index] = "O"
             _description.value = "플레이어 2의 차례입니다."
@@ -46,6 +51,8 @@ class MainViewModel : ViewModel() {
             }
         }
         _board.value = newBoard
+        newHistory.add(newBoard)
+        _history.value = newHistory
         _isFirstPlayer = !_isFirstPlayer
     }
 

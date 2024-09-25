@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tictactoe.databinding.CurrentBinding
 import com.example.tictactoe.databinding.HistoryBinding
 
-class HistoryAdapter (private val item: List<ListItem>): RecyclerView.Adapter<RecyclerView.ViewHolder> (){
+class HistoryAdapter (private var item: List<ListItem>): RecyclerView.Adapter<RecyclerView.ViewHolder> (){
     companion object {
         private const val TYPE_BUTTON = 0
         private const val TYPE_HISTORY = 1
@@ -22,6 +22,7 @@ class HistoryAdapter (private val item: List<ListItem>): RecyclerView.Adapter<Re
             is ListItem.HistoryBoardItem -> TYPE_HISTORY
             is ListItem.CurrentBoardItem -> TYPE_CURRENT
             is ListItem.ButtonItem -> TYPE_BUTTON
+            else -> throw IllegalArgumentException("Invalid View Type!!")
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -90,5 +91,16 @@ class HistoryAdapter (private val item: List<ListItem>): RecyclerView.Adapter<Re
                 textViews[index].text = board[index]
             }
         }
+    }
+    fun addHistory(newBoard: List<String>) {
+        var newItem:MutableList<ListItem> = item.toMutableList()
+        newItem += ListItem.HistoryBoardItem(newBoard)
+        item = newItem
+        notifyDataSetChanged()
+    }
+    fun resetHistory() {
+        var newItem:MutableList<ListItem> = mutableListOf(ListItem.ButtonItem)
+        item = newItem
+        notifyDataSetChanged()
     }
 }
