@@ -3,9 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    <Button
+    <TextView
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="게임 시작"/>
+        android:text="게임 시작!"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:textSize="20sp"
+        android:background="@color/material_dynamic_neutral80"/>
 </LinearLayout>

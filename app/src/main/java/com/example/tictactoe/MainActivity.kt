@@ -55,6 +55,7 @@ class MainActivity : AppCompatActivity() {
                 ListItem.ButtonItem,
                 ListItem.CurrentBoardItem(listOf("O", "O", "O", "X", "O", "O", "O", "X", "X")),
                 ListItem.HistoryBoardItem(listOf("O", "O", "O", "X", "O", "O", "O", "X", "X")),
+                ListItem.HistoryBoardItem(listOf("O", "O", "O", "X", "O", "O", "O", "X", "X"))
             )
         )
         /*
