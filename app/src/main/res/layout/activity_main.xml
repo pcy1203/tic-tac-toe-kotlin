@@ -222,8 +222,10 @@
         android:layout_height="match_parent"
         android:layout_gravity="start">
 
-        <!-- 이 부분에는 서랍 안 화면의 UI를 넣습니다. -->
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/HistoryView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
     </com.google.android.material.navigation.NavigationView>
 

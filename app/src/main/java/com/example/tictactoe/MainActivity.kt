@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tictactoe.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -47,6 +48,15 @@ class MainActivity : AppCompatActivity() {
         binding.MenuIcon.setOnClickListener{
             binding.root.openDrawer(binding.drawer)
         }
+
+        binding.HistoryView.layoutManager = LinearLayoutManager(this)
+        binding.HistoryView.adapter = HistoryAdapter(
+            listOf(
+                ListItem.ButtonItem,
+                ListItem.CurrentBoardItem(listOf("O", "O", "O", "X", "O", "O", "O", "X", "X")),
+                ListItem.HistoryBoardItem(listOf("O", "O", "O", "X", "O", "O", "O", "X", "X")),
+            )
+        )
         /*
         enableEdgeToEdge()
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
