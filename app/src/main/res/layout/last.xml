@@ -147,6 +147,7 @@
         </GridLayout>
 
         <TextView
+            android:id="@+id/winnerText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="O의 승리!!"

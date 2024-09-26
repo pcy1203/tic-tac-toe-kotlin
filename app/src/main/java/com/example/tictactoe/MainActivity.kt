@@ -1,13 +1,9 @@
 package com.example.tictactoe
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tictactoe.databinding.ActivityMainBinding
@@ -33,6 +29,14 @@ class MainActivity : AppCompatActivity() {
             board.forEachIndexed { index, value ->
                 textViews[index].text = value
             }
+            val currentBoard: List<String> = board?: List(9) { "" }
+
+            if(viewModel.winnerText.value != ""){
+                adapter.addLast(currentBoard, viewModel.winnerText.value!!)
+            }
+            else{
+                adapter.addHistory(currentBoard)
+            }
         })
 
         viewModel.description.observe(this, Observer { description ->
@@ -52,18 +56,19 @@ class MainActivity : AppCompatActivity() {
             binding.root.openDrawer(binding.drawer)
         }
 
+        fun historyCallback(historyBoard:List<String>, position: Int){
+            viewModel.historyButtonClicked(historyBoard)
+            adapter.moveHistory(position)
+        }
+
         binding.HistoryView.layoutManager = LinearLayoutManager(this)
         adapter = HistoryAdapter(
             listOf(
                 ListItem.ButtonItem,
-                )
+                ),
+            ::historyCallback
         )
         binding.HistoryView.adapter = adapter
-        viewModel.history.observe(this,{
-            Log.d("type", viewModel.board.value.toString())
-            val currentBoard: List<String> = viewModel.board.value?: List(9) { "" }
-            adapter.addHistory(currentBoard)
-        })
         /*
         enableEdgeToEdge()
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
